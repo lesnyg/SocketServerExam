@@ -34,6 +34,6 @@ public class Client {
     public static void main(String[] args) {
         // write your code here172.30.1.47
 
-        new Client("172.30.1.47",5555);
+        new Client("192.168.0.12",8000);
     }
 }

@@ -7,22 +7,21 @@ import java.sql.SQLOutput;
 
 public class Server implements Runnable {
     private Socket mSocket;
+    private String message = "";
 
     public static void main(String[] args) {
         // write your code here172.30.1.47
-        Thread pcThread = new Thread( new Server());
+        Thread pcThread = new Thread(new Server());
         pcThread.start();
     }
 
     @Override
     public void run() {
         try {
-            ServerSocket serverSocket = new ServerSocket(5000);
+            ServerSocket serverSocket = new ServerSocket(8000);
             System.out.println("서버시작");
-            //스레드가 멈춰 있고
-
-
             while (true) {
+                //스레드가 멈춰 있고
                 //연결 요청이 들어오면 연결
                 mSocket = serverSocket.accept();
                 System.out.println("클라이언트와 연결 됨");
@@ -33,22 +32,24 @@ public class Server implements Runnable {
                     String str = in.readLine();
                     System.out.println("S:Received " + str);
 
-
                     PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(mSocket.getOutputStream())));
                     out.println("Server Received " + str);
                 } catch (Exception e) {
                     System.out.println("에러");
                     e.printStackTrace();
                 } finally {
-                    mSocket.close();
                     System.out.println("S : Done");
                 }
-
-
             }
-
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+
+            try {
+                mSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
