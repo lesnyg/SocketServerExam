@@ -12,15 +12,17 @@ public class Client {
         try {
             mSocket = new Socket(ip,port);
 
-            mIn = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
-            mOut = new PrintWriter(mSocket.getOutputStream());
+            while (true) {
+                mIn = new BufferedReader(new InputStreamReader(mSocket.getInputStream()));
+                mOut = new PrintWriter(mSocket.getOutputStream());
 
-            //메세지 전달
-            mOut.println("응답하라!!");
-            mOut.flush();
+                //메세지 전달
+                mOut.println("응답하라!!");
+                mOut.flush();
 
-            //응답 출력
-            System.out.println(mIn.readLine());
+                //응답 출력
+                System.out.println(mIn.readLine());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
